@@ -1,0 +1,4 @@
+accounts_path: data/test_accounts.csv
+transactions_path: data/test_transactions.csv
+initial_wallet: 
+final_wallet: 
