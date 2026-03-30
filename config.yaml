@@ -1,4 +1,4 @@
-accounts_path: data/test_accounts.csv
-transactions_path: data/test_transactions.csv
-initial_wallet: 
-final_wallet: 
+accounts_path: data/accounts_fake_test.csv
+transactions_path: data/transacciones_complejas.csv
+initial_wallet: TL0_Node7_x92Jk
+final_wallet: TL4_Node5_wQ11
