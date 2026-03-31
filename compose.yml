@@ -11,7 +11,7 @@ services:
     image: rust:slim-bookworm
     depends_on: [node_compiler]
     command: >
-      sh -c "cargo build --release && mv /app/target/release/ladroncito . &&  ./ladroncito"
+      sh -c "cargo build --release && mv /app/target/release/ladroncito . &&  ./ladroncito web"
     volumes:
       - .:/app
     environment:

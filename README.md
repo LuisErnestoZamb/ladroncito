@@ -13,9 +13,14 @@ initial_wallet: TL0_Node7_x92Jk
 final_wallet: TL4_Node5_wQ11
 ```
 
+To execute the transactions search you can run:
 ```bash
 cargo run
 ```
 
+
 ## Web interface
 
+```bash
+cargo run web
+```
