@@ -1,0 +1,32 @@
+services:
+  node_compiler:
+    image: node:20-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -c "cd /app/frontend && npm install && npm run build"
+  cargo_rust:
+    working_dir: /app
+    image: rust:slim-bookworm
+    depends_on: [node_compiler]
+    command: >
+      sh -c "cargo build --release && mv /app/target/release/ladroncito . &&  ./ladroncito"
+    volumes:
+      - .:/app
+    environment:
+      - ROCKET_PROFILE=release
+      - ROCKET_ADDRESS=0.0.0.0
+  caddy:
+    image: caddy:latest
+    depends_on: [cargo_rust]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    # restart: always
+
+volumes:
+  caddy_data:

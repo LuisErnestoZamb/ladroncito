@@ -1,0 +1,18 @@
+localhost {
+    reverse_proxy app:8000
+    
+    log {
+        output stdout
+        format console
+    }
+}
+
+vps23880.cubepath.net {
+    reverse_proxy app:8000
+    
+    encode gzip zstd
+    
+    log {
+        output file /app/access.log
+    }
+}
