@@ -12,5 +12,6 @@ pub fn init_rocket() -> rocket::Rocket<rocket::Build> {
     rocket::build()
         .mount("/", rocket::routes![index])
         .mount("/", FileServer::from(relative!("frontend/dist/")))
-        .mount("/api", rocket::routes![lavado::post_lavado])
+        .mount("/ws", rocket::routes![lavado::analysis_ws])
+        .mount("/api", rocket::routes![lavado::start_analysis])
 }

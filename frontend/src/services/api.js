@@ -1,16 +1,16 @@
 export const submitAnalysis = async (data) => {
 
   const formData = new FormData();
-  formData.append("initialWallet", data.initialWallet);
-  formData.append("finalWallet", data.finalWallet);
+  formData.append("initial_wallet", data.initial_wallet);
+  formData.append("final_wallet", data.final_wallet);
 
-  if (data.useUrl) {
-    formData.append("csvUrl", data.csvUrl);
-  } else if (data.csvFile && data.csvFile[0]) {
-    formData.append("file", data.csvFile[0]);
+  if (data.use_url) {
+    formData.append("csv_url", data.csv_url);
+  } else if (data.csv_file && data.csv_file[0]) {
+    formData.append("file", data.csv_file[0]);
   }
 
-  const response = await fetch("/api/lavado", {
+  const response = await fetch("http://127.0.0.1:8000/api/lavado", {
     method: "POST",
     body: formData,
   });
