@@ -2,7 +2,7 @@ import { useAppHook } from "./hooks/useAppHook";
 
 export function App() {
   const {
-    isUrlMode, register, handleSubmit, setValue, errors, onSubmit,
+    isUrlMode, register, handleSubmit, setValue, errors, onSubmit, results
   } = useAppHook();
 
   return (
@@ -10,11 +10,22 @@ export function App() {
       <div className="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-8 border border-slate-200">
 
         <header className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">USDT Route Finder</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Ladroncito</h1>
           <p className="text-sm text-slate-500 mt-2">
-            Find transaction routes between two wallets using a CSV dataset.
+            <b>USDT Route Finder.</b> Find transaction routes between two wallets using a CSV dataset.
           </p>
         </header>
+
+        {results.length > 0 && (
+          <div className="my-6 space-y-2 bg-slate-900 p-4 rounded-lg font-mono text-xs text-green-400 h-64 overflow-y-auto">
+            {results.map((res, index) => (
+              <div key={index} className="border-b border-slate-800 pb-1">
+                <span className="text-slate-500 mr-2">[{index}]</span>
+                {typeof res === 'object' ? JSON.stringify(res) : res}
+              </div>
+            ))}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
@@ -25,7 +36,6 @@ export function App() {
               <input
                 {...register("initial_wallet", {
                   required: "Required",
-                  pattern: { value: /^T[1-9A-HJ-NP-Za-km-z]{33}$/, message: "Invalid Tron address" }
                 })}
                 placeholder="TAs9YsYy..."
                 className={`w-full p-2.5 border rounded-lg font-mono text-sm outline-none transition-all ${errors.initial_wallet ? 'border-red-500 bg-red-50' : 'border-slate-300 focus:ring-2 focus:ring-blue-500'}`}

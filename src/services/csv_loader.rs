@@ -1,4 +1,8 @@
-use crate::models::{account::Account, data_store::DataStore, transaction::Transaction};
+use crate::models::{
+    account::Account,
+    data_store::{DataStore, TransactionStore},
+    transaction::Transaction,
+};
 
 use std::error::Error;
 
@@ -18,4 +22,14 @@ pub fn load_datastore(
         accounts,
         transactions,
     })
+}
+
+pub fn load_only_transactions(transactions_path: &str) -> Result<TransactionStore, Box<dyn Error>> {
+    let mut transactions_reader = csv::Reader::from_path(transactions_path)?;
+
+    let transactions: Vec<Transaction> = transactions_reader
+        .deserialize()
+        .collect::<Result<_, _>>()?;
+
+    Ok(TransactionStore { transactions })
 }

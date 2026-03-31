@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "preact/hooks";
-import { submitAnalysis } from "../services/api";
+import { listenToUpdates, submitAnalysis } from "../services/api";
 
 export const useAppHook = () => {
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
@@ -25,6 +25,16 @@ export const useAppHook = () => {
     try {
       const { job_id } = await submitAnalysis(data);
 
+      listenToUpdates(job_id,
+        data.initial_wallet,
+        data.final_wallet,
+        (update) => {
+          setResults((prev) => [...prev, update]);
+
+          if (update.status === "completed") {
+            setIsAnalyzing(false);
+          }
+        });
 
     } catch (error) {
       alert(error.message);
@@ -33,6 +43,6 @@ export const useAppHook = () => {
   };
 
   return {
-    isUrlMode, register, handleSubmit, setValue, errors, onSubmit,
+    isUrlMode, register, handleSubmit, setValue, errors, onSubmit, results
   }
 };

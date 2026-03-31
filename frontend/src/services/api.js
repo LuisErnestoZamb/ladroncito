@@ -10,7 +10,7 @@ export const submitAnalysis = async (data) => {
     formData.append("file", data.csv_file[0]);
   }
 
-  const response = await fetch("http://127.0.0.1:8000/api/lavado", {
+  const response = await fetch("/api/lavado", {
     method: "POST",
     body: formData,
   });
@@ -21,4 +21,25 @@ export const submitAnalysis = async (data) => {
   }
 
   return response.json();
+};
+
+export const listenToUpdates = (jobId,
+  initial_wallet,
+  final_wallet,
+  onMessage) => {
+
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const socket = new WebSocket(`${protocol}//${window.location.host}/ws/analysis/${jobId}?initial_wallet=${encodeURIComponent(initial_wallet)}&final_wallet=${encodeURIComponent(final_wallet)}`);
+
+  socket.onopen = () => console.log("WebSocket connected for job:", jobId);
+
+  socket.onmessage = (event) => {
+    onMessage(event.data);
+  };
+
+  socket.onerror = (error) => console.error("WebSocket Error:", error);
+
+  socket.onclose = () => console.log("Analysis stream closed.");
+
+  return socket;
 };
