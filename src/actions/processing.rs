@@ -6,29 +6,30 @@ pub fn process_graph() {
 
     let start = &config.initial_wallet;
     let destination = &config.final_wallet;
+    let depth = config.depth;
 
     let graph = Graph::from_transactions(&ds.transactions);
 
     println!("Forward nodes: {}", graph.forward.len());
     println!("Reverse nodes: {}", graph.reverse.len());
 
-    if let Some(path) = graph.find_one_path(start, destination, 5) {
+    if let Some(path) = graph.find_one_path(start, destination, depth) {
         println!("One path found:");
         println!("{:?}", path);
 
         graph
-            .save_paths_to_file(&vec![path], "data/one_path.txt")
+            .save_paths_to_file(&vec![path], &config.result_one_path)
             .expect("Error saving one path");
     } else {
         println!("No path found (single search)");
     }
 
-    let all_paths = graph.find_all_paths(start, destination, 5);
+    let all_paths = graph.find_all_paths(start, destination, depth);
 
     println!("Total paths found: {}", all_paths.len());
 
     graph
-        .save_paths_to_file(&all_paths, "data/all_paths.txt")
+        .save_paths_to_file(&all_paths, &config.result_all_paths)
         .expect("Error saving all paths");
 }
 

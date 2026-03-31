@@ -19,7 +19,7 @@ pub struct AnalysisRequest<'r> {
 }
 
 #[derive(Debug, FromForm)]
-struct WalletParams {
+pub struct WalletParams {
     initial_wallet: String,
     final_wallet: String,
 }
@@ -52,7 +52,7 @@ pub fn analysis_ws(ws: WebSocket, job_id: String, params: WalletParams) -> Chann
     ws.channel(move |mut stream| {
         Box::pin(async move {
             let msg = format!(
-                "Trabajo {}: Analizando desde {} hasta {}",
+                "Job {}: Analyzing from {} to {}",
                 job_id, params.initial_wallet, params.final_wallet
             );
             let _ = stream.send(Message::Text(msg)).await;
@@ -74,7 +74,7 @@ pub fn analysis_ws(ws: WebSocket, job_id: String, params: WalletParams) -> Chann
             }
 
             let _ = stream
-                .send(Message::Text("Análisis finalizado".into()))
+                .send(Message::Text("Analysis completed".into()))
                 .await;
             Ok(())
         })

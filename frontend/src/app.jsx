@@ -1,3 +1,4 @@
+import { ExampleData } from "./example_data";
 import { useAppHook } from "./hooks/useAppHook";
 
 export function App() {
@@ -12,7 +13,7 @@ export function App() {
         <header className="text-center mb-8">
           <h1 className="text-2xl font-bold text-slate-900">Ladroncito</h1>
           <p className="text-sm text-slate-500 mt-2">
-            <b>USDT Route Finder.</b> Find transaction routes between two wallets using a CSV dataset.
+            Find transaction routes between two wallets using a CSV dataset.
           </p>
         </header>
 
@@ -93,6 +94,9 @@ export function App() {
             Analyze Transaction Graph
           </button>
         </form>
+
+        <hr className="my-10 border-slate-800" />
+        <ExampleData />
 
         <footer className="mt-8 text-center text-[10px] text-slate-400 uppercase tracking-widest">
           Engineered with Rust & Preact

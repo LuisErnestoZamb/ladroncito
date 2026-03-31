@@ -2,3 +2,6 @@ accounts_path: data/accounts_fake_test.csv
 transactions_path: data/transacciones_complejas.csv
 initial_wallet: TL0_Node7_x92Jk
 final_wallet: TL4_Node5_wQ11
+depth: 5
+result_one_path: data/one_path.txt
+result_all_paths: data/all_paths.txt

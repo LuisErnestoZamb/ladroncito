@@ -1,4 +1,4 @@
-use clap::{Arg, Command};
+use clap::Command;
 use ladroncito::actions::processing::process_graph;
 use ladroncito::actions::server;
 
@@ -13,6 +13,12 @@ async fn main() -> Result<(), rocket::Error> {
         Some(("web", _)) => {
             println!("Starting web server...");
             server::init_rocket().launch().await?;
+        }
+        Some(("core", _)) => {
+            println!(
+                "Running in multithread mode. Be aware that you computer can become frozen. Use this carefully."
+            );
+            todo!();
         }
         _ => {
             println!("Initializing local graph analysis...");
