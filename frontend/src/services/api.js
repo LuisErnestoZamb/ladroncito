@@ -6,6 +6,7 @@ export const submitAnalysis = async (data) => {
 
   if (data.use_url) {
     formData.append("csv_url", data.csv_url);
+    formData.append("use_url", true);
   } else if (data.csv_file && data.csv_file[0]) {
     formData.append("file", data.csv_file[0]);
   }
