@@ -17,24 +17,11 @@ pub fn process_graph(mode: &str) {
         _ => graph.find_all_paths_extreme(start, destination, depth),
     };
 
-    if let Some(path) = graph.find_one_path(start, destination, depth) {
-        println!("One path found:");
-        println!("{:?}", path);
-
-        graph
-            .save_paths_to_file(&vec![path], &config.result_one_path)
-            .expect("Error saving one path");
-    } else {
-        println!("No path found (single search)");
-    }
-
-    let all_paths = graph.find_all_paths(start, destination, depth);
-
-    println!("Total paths found: {}", all_paths.len());
-
     graph
         .save_paths_to_file(&results_graph, &config.result_all_paths)
         .expect("Error saving all paths");
+    println!("Total paths found: {}", results_graph.len());
+    println!("Search {} completed", mode);
 }
 
 #[test]

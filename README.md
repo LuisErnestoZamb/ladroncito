@@ -65,32 +65,32 @@ sudo apt install build-essential pkg-config libssl-dev
 
 Clone the project and generate the build.
 ```bash
-cargo build
+cargo build --release && mv target/release/ladroncito .
 ```
 
 ### Find the first occurrence or path
 To execute the transaction analysis:
 
 ```bash
-cargo run
+./ladroncito
 ```
 
 ### Parallel 
 Warrantied path results.
 ```bash
-cargo run parallel
+./ladroncito parallel
 ```
 
 ### All nodes - parallel only first level
 Execute this in a more than 12 core machine.
 ```bash
-cargo run all
+./ladroncito all
 ```
 
 ### All nodes - parallel only first level
 Experimental, non‑warrantied path results.
 ```bash
-cargo run core
+./ladroncito core
 ```
 
 ---
