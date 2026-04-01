@@ -15,7 +15,6 @@ pub async fn sort_search(
     graph
         .find_one_path(initial_wallet, final_wallet, 5)
         .ok_or_else(|| {
-            "No se encontró ninguna ruta entre las wallets dentro del límite de profundidad (5)"
-                .to_string()
+            "No route was found between the wallets within the depth limit (5).".to_string()
         })
 }

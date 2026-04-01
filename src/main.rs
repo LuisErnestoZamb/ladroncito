@@ -1,4 +1,5 @@
 use clap::Command;
+use ladroncito::actions::one_path::process_one_graph;
 use ladroncito::actions::processing::process_graph;
 use ladroncito::actions::server;
 
@@ -18,11 +19,21 @@ async fn main() -> Result<(), rocket::Error> {
             println!(
                 "Running in multithread mode. Be aware that you computer can become frozen. Use this carefully."
             );
-            todo!();
+            process_graph("core");
+        }
+        Some(("parallel", _)) => {
+            println!(
+                "Running in parallel mode. Be aware that you computer can become frozen. Use this carefully."
+            );
+            process_graph("parallel");
+        }
+        Some(("all", _)) => {
+            println!("Search all occurrences, not optimized.");
+            process_graph("all");
         }
         _ => {
             println!("Initializing local graph analysis...");
-            process_graph();
+            process_one_graph();
         }
     }
 

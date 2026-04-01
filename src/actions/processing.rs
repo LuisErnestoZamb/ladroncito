@@ -1,6 +1,6 @@
 use crate::services::{csv_loader::load_datastore, graph::Graph, load_config::load_config};
 
-pub fn process_graph() {
+pub fn process_graph(mode: &str) {
     let config = load_config("config.yaml").expect("config error");
     let ds = load_datastore(&config.accounts_path, &config.transactions_path).unwrap();
 
@@ -10,8 +10,12 @@ pub fn process_graph() {
 
     let graph = Graph::from_transactions(&ds.transactions);
 
-    println!("Forward nodes: {}", graph.forward.len());
-    println!("Reverse nodes: {}", graph.reverse.len());
+    let results_graph = match mode {
+        "core" => graph.find_all_paths_extreme(start, destination, depth),
+        "parallel" => graph.find_all_paths_parallel(start, destination, depth),
+        "all" => graph.find_all_paths(start, destination, depth),
+        _ => graph.find_all_paths_extreme(start, destination, depth),
+    };
 
     if let Some(path) = graph.find_one_path(start, destination, depth) {
         println!("One path found:");
@@ -29,7 +33,7 @@ pub fn process_graph() {
     println!("Total paths found: {}", all_paths.len());
 
     graph
-        .save_paths_to_file(&all_paths, &config.result_all_paths)
+        .save_paths_to_file(&results_graph, &config.result_all_paths)
         .expect("Error saving all paths");
 }
 

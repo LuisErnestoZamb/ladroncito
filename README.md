@@ -49,10 +49,45 @@ depth: 5
 
 ## ▶️ Run
 
+If you're running CubePath and your dataset is around 500 MB or roughly 2 million transactions, it is strongly recommended to use a "gp.xxxlarge" VPS with 48 vCPUs for optimal performance.
+
+### Install Rust:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+```bash
+source $HOME/.cargo/env
+```
+
+```bash
+cargo build
+```
+
+### Find the first occurrence or path
 To execute the transaction analysis:
 
 ```bash
 cargo run
+```
+
+### Parallel 
+Warrantied path results.
+```bash
+cargo run parallel
+```
+
+### All nodes - parallel only first level
+Execute this in a more than 12 core machine.
+```bash
+cargo run all
+```
+
+### All nodes - parallel only first level
+Experimental, non‑warrantied path results.
+```bash
+cargo run core
 ```
 
 ---
