@@ -59,8 +59,11 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ```bash
 source $HOME/.cargo/env
+sudo apt update
+sudo apt install build-essential pkg-config libssl-dev
 ```
 
+Clone the project and generate the build.
 ```bash
 cargo build
 ```

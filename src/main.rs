@@ -8,6 +8,9 @@ async fn main() -> Result<(), rocket::Error> {
     let matches = Command::new("ladroncito")
         .about("Blockchain Transaction Forensics Tool")
         .subcommand(Command::new("web").about("Start the Rocket web server"))
+        .subcommand(Command::new("core").about("All nodes - parallel only first level"))
+        .subcommand(Command::new("parallel").about("Parallel - Warrantied path results"))
+        .subcommand(Command::new("all").about("All nodes - parallel only first level"))
         .get_matches();
 
     match matches.subcommand() {
