@@ -148,12 +148,6 @@ docker compose up -d
 
 ---
 
-## 🎬 Demo
-
-👉 https://vps23880.cubepath.net/
-
----
-
 ## 💡 About the Name
 
 Once upon a time, someone stole crypto thinking they were invisible...  
